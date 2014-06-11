@@ -11,30 +11,35 @@ What you will need:
 ## Usage
 
 ```elixir
-Hipchat.configure([token: "personal_token"])
+client  = Hipchat.configure([token: "personal_token"]) #=> [token: "1234"]
 ```
 
 Send a message to a room
 
 ```elixir
-Hipchat.Rooms.message([room_id: "test", message: "this is a test message", message_format: "text"])
+client |> Hipchat.Rooms.message([room_id: "test", message: "this is a test message", message_format: "text"])
+```
+OR 
+
+```elixir
+Hipchat.Rooms.message(client, [room_id: "test", message: "this is a test message", message_format: "text"])
 ```
 
 Send a private message to a user
 
 ```elixir
-Hipchat.Users.message([user: "foo@example.com", message: "what's up!"])
+client |> Hipchat.Users.message([user: "foo@example.com", message: "what's up!"])
 ```
 
 Fetch a list of all the rooms
 
 ```elixir
-Hipchat.Rooms.all
+client |> Hipchat.Rooms.all
 ```
 Fetch all the users
 
 ```elixir
-Hipchat.Users.all
+client |> Hipchat.Users.all
 ```
   
 * see [hipchat API documentation](https://www.hipchat.com/docs/apiv2)

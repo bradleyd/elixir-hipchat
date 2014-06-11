@@ -1,21 +1,21 @@
 defmodule Hipchat.HTTP do
 
-  def get(url) do
-    response = HTTPotion.get(url, set_headers)
+  def get(client, url) do
+    response = HTTPotion.get(url, set_headers(client))
     {_, body} =  parse_body(response.body)
     { response.status_code, body }
   end
 
-  def post(url, payload) do
-    response = HTTPotion.post(url, encode_payload(payload), set_headers, [])
+  def post(client, url, payload) do
+    response = HTTPotion.post(url, encode_payload(payload), set_headers(client), [])
     {_, body} =  parse_body(response.body)
     {response.status_code, body}
   end
 
   # @TODO add real token via :ets?
-  def set_headers do
+  def set_headers(client) do
     HashDict.new
-    |> authentication()
+    |> authentication(client[:token])
     |> HashDict.put(:"Accept", "application/json")
     |> HashDict.put(:"content-type", "application/json")
   end

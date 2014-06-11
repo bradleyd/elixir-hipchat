@@ -4,7 +4,7 @@ defmodule Hipchat.Mixfile do
   def project do
     [app: :hipchat,
      version: "0.1.0",
-     elixir: "~> 0.14.0-dev",
+     elixir: "~> 0.13-dev",
      deps: deps]
   end
 
