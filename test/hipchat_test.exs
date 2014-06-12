@@ -10,13 +10,4 @@ defmodule HipchatTest do
     assert token[:token] == "1234"
   end
   
-  test "hipchat.rooms.all returns all rooms" do
-    client = [token: System.get_env("TOKEN")]
-    assert is_list Hipchat.Rooms.all(client)
-  end
-
-  test "hipchat.rooms.message sends message to specfic room" do
-    resp = Hipchat.Rooms.message([room_id: "test", message: "foobar"])
-    assert resp.status_code == 204
-  end
 end

@@ -8,7 +8,4 @@ defmodule Hipchat do
   """
   defdelegate configure(token), to: Hipchat.Config
 
-  def start(token) do
-    {:ok, true}  
-  end
 end

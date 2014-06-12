@@ -1,7 +1,9 @@
 Hipchat
 =======
 
-a hipcaht library binding for elixir
+A hipcaht API library for elixir
+
+* This is a WIP and not all the functionalaity is here
 
 What you will need:
 
@@ -25,10 +27,20 @@ OR
 Hipchat.Rooms.message(client, [room_id: "test", message: "this is a test message", message_format: "text"])
 ```
 
+Find a room
+```elixir
+client |> Hipchat.Rooms.find("test")
+```
+
+Find a user
+```elixir
+client |> Hipchat.Users.find("@foo")
+```
+
 Send a private message to a user
 
 ```elixir
-client |> Hipchat.Users.message([user: "foo@example.com", message: "what's up!"])
+client |> Hipchat.Users.message([user: "@foo", message: "what's up!"])
 ```
 
 Fetch a list of all the rooms
@@ -36,6 +48,7 @@ Fetch a list of all the rooms
 ```elixir
 client |> Hipchat.Rooms.all
 ```
+
 Fetch all the users
 
 ```elixir

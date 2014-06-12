@@ -1,18 +1,29 @@
 defmodule Hipchat.HTTP do
+  @moduledoc """
+  Wrapper for all HTTP calls
+  """
 
+  @doc """
+  Performs GET request
+  """
   def get(client, url) do
     response = HTTPotion.get(url, set_headers(client))
     {_, body} =  parse_body(response.body)
     { response.status_code, body }
   end
 
+  @doc """
+  Performs POST request
+  """
   def post(client, url, payload) do
     response = HTTPotion.post(url, encode_payload(payload), set_headers(client), [])
     {_, body} =  parse_body(response.body)
     {response.status_code, body}
   end
 
-  # @TODO add real token via :ets?
+  @doc """
+  Builds headers
+  """
   def set_headers(client) do
     HashDict.new
     |> authentication(client[:token])
@@ -20,9 +31,19 @@ defmodule Hipchat.HTTP do
     |> HashDict.put(:"content-type", "application/json")
   end
 
-  # @return HashDict
+  @doc """
+  Creates a HashDict with authorization header
+  """
   defp authentication(hash, token) do
     HashDict.put(hash, :"Authorization", "Bearer " <> token)
+  end
+
+  @doc """
+  Encode the key value payload to JSON
+  """
+  def encode_payload(payload) do
+    {:ok, json } = JSON.encode(payload)
+    json
   end
 
   defp parse_body(body) do
@@ -31,10 +52,5 @@ defmodule Hipchat.HTTP do
       ""  -> {:ok, body}
       body -> body |> JSON.decode 
     end
-  end
-
-  def encode_payload(payload) do
-    {:ok, json } = JSON.encode(payload)
-    json
   end
 end
