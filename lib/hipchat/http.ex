@@ -7,6 +7,7 @@ defmodule Hipchat.HTTP do
   Performs GET request
   """
   def get(client, url) do
+    IO.inspect set_headers(client)
     response = HTTPotion.get(url, set_headers(client))
     {_, body} =  parse_body(response.body)
     { response.status_code, body }
@@ -31,9 +32,6 @@ defmodule Hipchat.HTTP do
     |> HashDict.put(:"content-type", "application/json")
   end
 
-  @doc """
-  Creates a HashDict with authorization header
-  """
   defp authentication(hash, token) do
     HashDict.put(hash, :"Authorization", "Bearer " <> token)
   end

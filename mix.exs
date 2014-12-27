@@ -4,7 +4,7 @@ defmodule Hipchat.Mixfile do
   def project do
     [app: :hipchat,
      version: "0.1.1",
-     elixir: "~> 0.13-dev",
+     elixir: "~> 1.0",
      deps: deps]
   end
 
@@ -25,7 +25,10 @@ defmodule Hipchat.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [ {:httpotion, git: "https://github.com/myfreeweb/httpotion.git"},
-      {:json,"0.2.9",[github: "cblage/elixir-json", tag: "v0.2.9"]} ]
+    [ 
+      {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.0"},
+      {:httpotion, "~> 1.0.0"},
+      {:json, "~> 0.3.0"}
+    ]
   end
 end
