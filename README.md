@@ -5,6 +5,9 @@ A hipcaht API library for elixir
 
 * This is a WIP and not all the functionalaity is here
 
+#### Issues
+* for some reason it double posts the message when private message to a user
+
 What you will need:
 
 * you personal token [here](https://sendgrid.hipchat.com/account/api)
@@ -40,7 +43,7 @@ client |> Hipchat.Users.find("@foo")
 Send a private message to a user
 
 ```elixir
-client |> Hipchat.Users.message([user: "@foo", message: "what's up!"])
+client |> Hipchat.Users.message([user_id: "@foo", message: "what's up!"])
 ```
 
 Fetch a list of all the rooms
