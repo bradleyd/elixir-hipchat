@@ -10,7 +10,7 @@ defmodule Hipchat.Users do
   """
   def all(client) do
     users_url = "https://api.hipchat.com/v2/user"
-    {code, users} = HTTP.get(client, users_url)
+    {_code, users} = HTTP.get(client, users_url)
     Enum.map users["items"], fn (k) -> %{name: k["name"], id: k["id"]} end
   end
 
@@ -20,7 +20,7 @@ defmodule Hipchat.Users do
   def message(client, options) when is_list(options) do
     user = options[:user_id]
     user_notification_url = "https://api.hipchat.com/v2/user/#{user}/message"
-    {code, body} = HTTP.post(client, user_notification_url, Keyword.delete(options, :user_id))
+    HTTP.post(client, user_notification_url, Keyword.delete(options, :user_id))
   end
 
   @doc """
