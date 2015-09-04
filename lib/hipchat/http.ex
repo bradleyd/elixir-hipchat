@@ -8,7 +8,7 @@ defmodule Hipchat.HTTP do
   """
   def get(client, url) do
     IO.inspect set_headers(client)
-    response = HTTPotion.get(url, set_headers(client))
+    response = HTTPotion.get(url, [headers: set_headers(client)])
     {_, body} =  parse_body(response.body)
     { response.status_code, body }
   end
@@ -17,7 +17,7 @@ defmodule Hipchat.HTTP do
   Performs POST request
   """
   def post(client, url, payload) do
-    response = HTTPotion.post(url, encode_payload(payload), set_headers(client), [])
+    response = HTTPotion.post(url, [body: encode_payload(payload), headers: set_headers(client)])
     {_, body} =  parse_body(response.body)
     {response.status_code, body}
   end
@@ -26,14 +26,9 @@ defmodule Hipchat.HTTP do
   Builds headers
   """
   def set_headers(client) do
-    HashDict.new
-    |> authentication(client[:token])
-    |> HashDict.put(:"Accept", "application/json")
-    |> HashDict.put(:"content-type", "application/json")
-  end
-
-  defp authentication(hash, token) do
-    HashDict.put(hash, :"Authorization", "Bearer " <> token)
+    ["Authorization": "Bearer " <> (client[:token] != nil && client[:token] || ""),
+     "Accept": "application/json",
+     "content-type": "application/json"]
   end
 
   @doc """
