@@ -8,7 +8,6 @@ defmodule Hipchat.Rooms do
   @doc """
   Returns all rooms (defaults to 100)
   """
-
   def all(client) do
     rooms_url = "https://api.hipchat.com/v2/room"
     {_code, rooms} = HTTP.get(client, rooms_url)

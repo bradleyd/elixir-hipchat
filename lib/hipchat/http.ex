@@ -26,7 +26,7 @@ defmodule Hipchat.HTTP do
   Builds headers
   """
   def set_headers(client) do
-    ["Authorization": "Bearer " <> (client[:token] != nil && client[:token] || ""),
+    ["Authorization": "Bearer " <> to_string(Dict.get(client, :token)),
      "Accept": "application/json",
      "content-type": "application/json"]
   end
