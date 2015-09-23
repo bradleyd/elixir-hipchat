@@ -8,7 +8,7 @@ defmodule Hipchat.HTTP do
   """
   def get(client, url) do
     IO.inspect set_headers(client)
-    response = HTTPotion.get(url, [headers: set_headers(client)])
+    response = HTTPotion.get(url, [headers: set_headers(client), timeout: Dict.get(client, :timeout, 5000)])
     {_, body} =  parse_body(response.body)
     { response.status_code, body }
   end
@@ -17,7 +17,7 @@ defmodule Hipchat.HTTP do
   Performs POST request
   """
   def post(client, url, payload) do
-    response = HTTPotion.post(url, [body: encode_payload(payload), headers: set_headers(client)])
+    response = HTTPotion.post(url, [body: encode_payload(payload), headers: set_headers(client), timeout: Dict.get(client, :timeout, 5000)])
     {_, body} =  parse_body(response.body)
     {response.status_code, body}
   end
